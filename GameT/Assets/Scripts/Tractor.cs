@@ -6,8 +6,10 @@ public class Tractor : MonoBehaviour
 {
 	public float speed = 5f;
 
+	public Restart restartScript;
+	public FruitCounter fruitCounter;
 	private FruitButtons FruitButtons = new FruitButtons();
-	private Vector3 lastMoveDirection = Vector3.left;
+	private Vector3 lastMoveDirection = Vector3.right;
 	private Vector3 inputDirection = Vector3.zero;
 
 	void Start()
@@ -62,12 +64,26 @@ public class Tractor : MonoBehaviour
 		if (other.CompareTag("Fruit1"))
 		{
 			if(FruitButtons.IsBananaButtonPressed())
+			{
 				Destroy(other.gameObject);
+				fruitCounter.IncreaseCounter();
+			}
+			else
+			{
+				restartScript.GameOver();
+			}
 		}
 		else if (other.CompareTag("Fruit2"))
 		{
 			if (!FruitButtons.IsBananaButtonPressed())
+			{
 				Destroy(other.gameObject);
+				fruitCounter.IncreaseCounter();
+			}
+			else
+			{
+				restartScript.GameOver();
+			}
 		}
 	}
 }
